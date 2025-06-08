@@ -21,11 +21,7 @@
             z-index: 1;
             /* 确保雪花在背景之上 */
         }
-            flex: 1;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+         
         footer {
             background: #e8eaf6;
             padding: 1.5rem;
@@ -140,3 +136,84 @@
     window.addEventListener('DOMContentLoaded', createSnow);
 </script>
 </html>
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --secondary: #1e40af;
+    --surface: rgba(255, 255, 255, 0.95);
+  }
+
+  .container {
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    margin: 2rem auto;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .input-group {
+    gap: 1.2rem;
+    max-width: 800px;
+  }
+
+  input {
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+  }
+
+  button {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    input, button {
+      width: 100%;
+    }
+  }
+</style>
+
+<style>
+  #weather-data {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .weather-card {
+    width: 100%;
+    max-width: 800px;
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+
+  .weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+  }
+</style>
