@@ -58,3 +58,11 @@ function updateWeatherDisplay(data) {
     `;
     weatherDataDiv.innerHTML = weatherInfo;
 }
+
+document.getElementById('latitude').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') fetchWeatherData();
+});
+
+document.getElementById('longitude').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') fetchWeatherData();
+});
