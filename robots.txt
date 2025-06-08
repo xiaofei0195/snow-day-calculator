@@ -1,3 +1,3 @@
 User-agent: *
-Disallow: 
-Sitemap: /sitemap.xml
+Disallow:
+Sitemap: https://www.ai-snow-day-calculator.xyz/sitemap.xml
