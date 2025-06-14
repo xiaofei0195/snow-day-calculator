@@ -1,141 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="baidu-site-verification" content="codeva-vXsmJbjA1n" />
-    <title>Snow Day Calculator</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="baidu-site-verification" content="codeva-vXsmJbjA1n" />
+  <title>Snow Day Calculator</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5" alt="Snowy landscape" style="display:none;">
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui;
+      background: linear-gradient(rgba(173, 216, 230, 0.8), rgba(240, 248, 255, 0.8)),
+        url('https://images.unsplash.com/photo-1511886920558-914bbe2d51a3') center/cover no-repeat;
+      /* 保持原有动态雪花效果 */
+    }
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VEW77KDPTP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-VEW77KDPTP');
-    </script>
-    
-    <style>
-        body {
-            font-family: 'Segoe UI', system-ui;
-            background: linear-gradient(rgba(173, 216, 230, 0.8), rgba(240, 248, 255, 0.8)),
-                        url('https://images.unsplash.com/photo-1511886920558-914bbe2d51a3') center/cover no-repeat;
-            /* 保持原有动态雪花效果 */
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            /* 调整容器透明度确保文字可读 */
-        }
-        .snow-container {
-            z-index: 1;
-            /* 确保雪花在背景之上 */
-        }
-         
-        footer {
-            background: #e8eaf6;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
-            margin-top: auto;
-        }
-        @media (max-width: 640px) {
-            input, button {
-                width: 100%;
-                margin: 8px 0;
-            }
-        }
-        @media (max-width: 1280px) {
-            .container {
-                max-width: 90%;
-            }
-        }
-        .weather-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            text-align: left;
-        }
-        .weather-item {
-            display: flex;
-            align-items: center;
-            text-align: left;
-        }
-        .weather-item i {
-            font-size: 1.2rem;
-            width: 28px;
-            text-align: center;
-        }
-    </style>
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      /* 调整容器透明度确保文字可读 */
+    }
+
+    .snow-container {
+      z-index: 1;
+      /* 确保雪花在背景之上 */
+    }
+
+    footer {
+      background: #e8eaf6;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+      margin-top: auto;
+    }
+
+    @media (max-width: 640px) {
+
+      input,
+      button {
+        width: 100%;
+        margin: 8px 0;
+      }
+    }
+
+    @media (max-width: 1280px) {
+      .container {
+        max-width: 90%;
+      }
+    }
+
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      text-align: left;
+    }
+
+    .weather-item {
+      display: flex;
+      align-items: center;
+      text-align: left;
+    }
+
+    .weather-item i {
+      font-size: 1.2rem;
+      width: 28px;
+      text-align: center;
+    }
+  </style>
 </head>
-    
-<body>
-    <div class="snow-container"></div>
-    <div class="container">
-        <h1 style="color: #1a237e; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; font-weight: 600; letter-spacing: -0.5px;">Snow Day Calculator</h1>
-        <p style="color: #6c757d; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem auto; text-align: center;">
-            A snowy day calculator predicts snowfall amounts and probabilities, helping users plan activities
-            and prepare for winter weather conditions.
-        </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap">
-            <input type="text" id="latitude" placeholder="Latitude (range: -90° to 90°)" pattern="^-?(90|[1-8]?\d(\.\d+)?)$" title="Please enter valid latitude (-90 to 90)" oninput="validateCoordinate(this)">
-            <input type="text" id="longitude" placeholder="Longitude (range: -180° to 180°)" pattern="^-?(180|1[0-7]\d|\d{1,2})(\.\d+)?$" title="Please enter valid longitude (-180 to 180)" oninput="validateCoordinate(this)">
-            <button onclick="fetchWeatherData()" style="flex: none">🌤️ Get Weather</button>
-        </div>
-        <div id="weather-data"></div>
-    </div>
 
-    <a href="/sitemap.xml">sitemap</a>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VEW77KDPTP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'G-VEW77KDPTP');
+</script>
+
+<body>
+  <div class="snow-container"></div>
+  <div class="container">
+    <h1
+      style="color: #1a237e; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; font-weight: 600; letter-spacing: -0.5px;">
+      Snow Day Calculator</h1>
+    <p
+      style="color: #6c757d; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem auto; text-align: center;">
+      A snowy day calculator predicts snowfall amounts and probabilities, helping users plan activities
+      and prepare for winter weather conditions.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap">
+      <input type="text" id="latitude" placeholder="Latitude (range: -90° to 90°)" pattern="^-?(90|[1-8]?\d(\.\d+)?)$"
+        title="Please enter valid latitude (-90 to 90)" oninput="validateCoordinate(this)">
+      <input type="text" id="longitude" placeholder="Longitude (range: -180° to 180°)"
+        pattern="^-?(180|1[0-7]\d|\d{1,2})(\.\d+)?$" title="Please enter valid longitude (-180 to 180)"
+        oninput="validateCoordinate(this)">
+      <button onclick="fetchWeatherData()" style="flex: none">🌤️ Get Weather</button>
+    </div>
+    <div id="weather-data"></div>
+  </div>
+
+  <a href="/sitemap.xml">sitemap</a>
   <footer>
     <p style="color: #6c757d; margin: 0">© 2025 Snow Day Calculator. All rights reserved.</p>
   </footer>
 
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 <style>
-    .snow-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
+  .snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes snowFall {
+    0% {
+      transform: translateY(-10vh) translateX(0);
     }
-    @keyframes snowFall {
-        0% {
-            transform: translateY(-10vh) translateX(0);
-        }
-        100% {
-            transform: translateY(110vh) translateX(100vw);
-        }
+
+    100% {
+      transform: translateY(110vh) translateX(100vw);
     }
-    .snowflake {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: white;
-        border-radius: 50%;
-        filter: blur(1px);
-        animation: snowFall linear infinite;
-    }
+  }
+
+  .snowflake {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: snowFall linear infinite;
+  }
 </style>
 <script>
-    function createSnow() {
-        const container = document.querySelector('.snow-container');
-        for(let i=0; i<50; i++) {
-            const flake = document.createElement('div');
-            flake.className = 'snowflake';
-            flake.style.left = Math.random() * 100 + '%';
-            flake.style.animationDuration = Math.random() * 3 + 5 + 's';
-            flake.style.animationDelay = Math.random() * 5 + 's';
-            flake.style.opacity = Math.random() * 0.7 + 0.3;
-            container.appendChild(flake);
-        }
+  function createSnow() {
+    const container = document.querySelector('.snow-container');
+    for (let i = 0; i < 50; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'snowflake';
+      flake.style.left = Math.random() * 100 + '%';
+      flake.style.animationDuration = Math.random() * 3 + 5 + 's';
+      flake.style.animationDelay = Math.random() * 5 + 's';
+      flake.style.opacity = Math.random() * 0.7 + 0.3;
+      container.appendChild(flake);
     }
-    window.addEventListener('DOMContentLoaded', createSnow);
+  }
+  window.addEventListener('DOMContentLoaded', createSnow);
 </script>
+
 </html>
 
 <style>
@@ -147,8 +167,9 @@
 
   .container {
     backdrop-filter: blur(16px);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
     padding: 2.5rem;
     margin: 2rem auto;
   }
@@ -183,22 +204,17 @@
   }
 
   @media (max-width: 640px) {
-  .container {
-    backdrop-filter: blur(16px);
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    padding: 2.5rem;
-    margin: 2rem auto;
-  }
-  h1 {
-    font-size: 2.8rem;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-    input, button {
+    .container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    input,
+    button {
       width: 100%;
     }
   }
@@ -226,7 +242,6 @@
     justify-items: center;
   }
 </style>
-
 <style>
   body {
     background: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5') center/cover no-repeat fixed;
